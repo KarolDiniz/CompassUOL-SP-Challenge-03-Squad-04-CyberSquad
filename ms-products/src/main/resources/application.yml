@@ -3,11 +3,21 @@ spring:
     url: jdbc:postgresql://localhost:5432/msproducts
     username: postgres
     password: 12345678
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create # Define a estratégia de criação das tabelas (no caso, sempre criá-las)
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQLDialect # Define o dialeto do banco de dados
 
-  application:
-    name: msproducts
+  sql:
+    init:
+      mode: always # Indica que o script SQL deve ser executado sempre na inicialização
 
-#Portas rand�micas
+application:
+  name: msproducts
+
 server:
   port: 0
 
@@ -16,4 +26,4 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka
   instance:
-    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    instance-id:  ${spring.application.name}:${spring.application.instance_id:${random.value}}
