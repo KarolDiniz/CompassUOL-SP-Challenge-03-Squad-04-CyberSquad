@@ -1,4 +1,7 @@
 spring:
+  application:
+    name: msproducts
+
   datasource:
     url: jdbc:postgresql://localhost:5432/msproducts
     username: postgres
@@ -6,17 +9,13 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create # Define a estratégia de criação das tabelas (no caso, sempre criá-las)
+      ddl-auto: update
       properties:
         hibernate:
           dialect: org.hibernate.dialect.PostgreSQLDialect # Define o dialeto do banco de dados
-
   sql:
     init:
       mode: always # Indica que o script SQL deve ser executado sempre na inicialização
-
-application:
-  name: msproducts
 
 server:
   port: 0
