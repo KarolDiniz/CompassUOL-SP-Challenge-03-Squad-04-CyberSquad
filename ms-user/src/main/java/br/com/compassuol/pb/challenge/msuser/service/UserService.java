@@ -10,15 +10,14 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 @Transactional
-public class UserService {private final UserRepository userRepository;
+public class UserService {
+    private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 
     public User createUser(UserDTO userDTO) {
@@ -28,12 +27,11 @@ public class UserService {private final UserRepository userRepository;
         return userRepository.save(user);
     }
 
-
-    public User getById(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("User not found with id: " + id));
+    public User updateUser(Long userId, UserDTO user) {
+        User existingUser = getUserById(userId);
+        BeanUtils.copyProperties(user, existingUser, "userId");
+        return userRepository.save(existingUser);
     }
-
 
     private void setRoles(UserDTO userDTO, User user) {
         List<Role> roles = userDTO.getRoles();
