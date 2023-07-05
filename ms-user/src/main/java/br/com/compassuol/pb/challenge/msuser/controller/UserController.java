@@ -29,9 +29,9 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<User> updateUser(@PathVariable Long id, @Valid @RequestBody UserDTO userDTO) {
-//        User updatedUser = userService.updateUser(id, userDTO);
-//        return ResponseEntity.ok(updatedUser);
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @Valid @RequestBody UserDTO userDTO) {
+        User updatedUser = userService.updateUser(id, userDTO);
+        return ResponseEntity.ok(updatedUser);
+    }
 }
