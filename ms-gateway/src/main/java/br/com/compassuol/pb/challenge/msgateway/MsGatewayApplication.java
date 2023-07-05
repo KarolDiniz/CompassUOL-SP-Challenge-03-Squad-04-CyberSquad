@@ -20,6 +20,8 @@ public class MsGatewayApplication {
 		return builder.routes()
 				.route(r -> r.path("/categories/**").uri("lb://msproducts"))
 				.route(r -> r.path("/products/**").uri("lb://msproducts"))
+				.route(r -> r.path("/users/**").uri("lb://msusers"))
+				.route(r -> r.path("/roles/**").uri("lb://msusers"))
 				.build();
 	}
 }
