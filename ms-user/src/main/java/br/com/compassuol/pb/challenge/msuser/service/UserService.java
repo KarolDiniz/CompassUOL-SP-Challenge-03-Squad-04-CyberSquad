@@ -1,0 +1,58 @@
+package br.com.compassuol.pb.challenge.msuser.service;
+
+import br.com.compassuol.pb.challenge.msuser.dto.UserDTO;
+import br.com.compassuol.pb.challenge.msuser.entities.*;
+import br.com.compassuol.pb.challenge.msuser.repository.RoleRepository;
+import br.com.compassuol.pb.challenge.msuser.repository.UserRepository;
+import jakarta.transaction.Transactional;
+import jakarta.ws.rs.NotFoundException;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+@Service
+@AllArgsConstructor
+@Transactional
+public class UserService {private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+
+    public User createUser(UserDTO userDTO) {
+        User user = new User();
+        BeanUtils.copyProperties(userDTO, user);
+        setRoles(userDTO, user);
+        return userRepository.save(user);
+    }
+
+
+    public User getById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User not found with id: " + id));
+    }
+
+
+    private void setRoles(UserDTO userDTO, User user) {
+        List<Role> roles = userDTO.getRoles();
+        if (roles != null && !roles.isEmpty()) {
+            List<Long> roleIds = roles.stream()
+                    .map(Role::getId)
+                    .collect(Collectors.toList());
+            List<Role> fetchedRoles = roleRepository.findAllById(roleIds);
+            if (fetchedRoles.size() != roleIds.size()) {
+                throw new IllegalArgumentException("One or more roles not found");
+            }
+            user.setRoles(fetchedRoles);
+        } else {
+            user.setRoles(null);
+        }
+    }
+
+    public User getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User not found with id: " + id));
+    }
+}
