@@ -7,6 +7,7 @@ import br.com.compassuol.pb.challenge.msuser.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.NotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +20,18 @@ import java.util.stream.Collectors;
 public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final RabbitTemplate rabbitTemplate;
 
     public User createUser(UserDTO userDTO) {
         User user = new User();
         BeanUtils.copyProperties(userDTO, user);
         setRoles(userDTO, user);
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+
+        String mensagem = user.getEmail();
+        rabbitTemplate.convertAndSend("ms-notification", mensagem);
+
+        return savedUser;
     }
 
     public User updateUser(Long userId, UserDTO user) {
