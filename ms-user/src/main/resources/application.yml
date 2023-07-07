@@ -1,7 +1,6 @@
 spring:
   application:
     name: msusers
-
   datasource:
     url: jdbc:postgresql://localhost:5432/msusersdatabase
     username: postgres
@@ -16,6 +15,13 @@ spring:
   sql:
     init:
       mode: always
+  rabbitmq:
+    addresses: amqps://uvsdhnsz:9xVH7gPEMyBoo5PjXhqtt1Yrd35mAqJJ@jackal.rmq.cloudamqp.com/uvsdhnsz
+    queue: ms-notification
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 
 server:
   port: 0
@@ -26,4 +32,9 @@ eureka:
       defaultZone: http://localhost:8761/eureka
   instance:
     instance-id:  ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+mq:
+  queues:
+    ms-notification: ms-notification
+
 
