@@ -8,6 +8,8 @@ import br.com.compassuol.pb.challenge.msproducts.repository.CategoryRepository;
 import br.com.compassuol.pb.challenge.msproducts.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,15 +40,22 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public void deleteProduct(Long id) {
-        productRepository.deleteById(id);
-    }
 
     public Product updateProduct(Long id, ProductDTO productDTO) {
         Product product = getProductById(id);
         BeanUtils.copyProperties(productDTO, product);
         setCategories(productDTO, product);
         return productRepository.save(product);
+    }
+
+    public Page<Product> getAllProducts(Pageable pageable) {
+        return productRepository.findAll(pageable);
+    }
+
+    public void deleteAllProducts() { productRepository.deleteAll(); }
+
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
     }
 
     private void setCategories(ProductDTO productDTO, Product product) {
@@ -64,4 +73,5 @@ public class ProductService {
             product.setCategories(null);
         }
     }
+
 }
