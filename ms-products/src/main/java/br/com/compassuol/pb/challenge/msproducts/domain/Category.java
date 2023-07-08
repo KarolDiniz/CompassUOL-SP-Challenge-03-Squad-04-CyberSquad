@@ -2,11 +2,8 @@ package br.com.compassuol.pb.challenge.msproducts.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @EqualsAndHashCode(of = "id")
@@ -19,5 +16,6 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name")
     private String name;
 }
