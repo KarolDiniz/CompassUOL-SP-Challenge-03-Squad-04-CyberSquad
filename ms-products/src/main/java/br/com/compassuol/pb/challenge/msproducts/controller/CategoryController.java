@@ -16,13 +16,19 @@ import java.util.List;
 public class CategoryController {
 
     private final CategoryService categoryService;
-
     @PostMapping
     public ResponseEntity<Category> createCategory(@RequestBody CategoryDTO categoryDTO) {
-        Category category = categoryService.createCategory(categoryDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(category);
+        if (isValidCategoryDTO(categoryDTO)) {
+            Category category = categoryService.createCategory(categoryDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(category);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
+    private boolean isValidCategoryDTO(CategoryDTO categoryDTO) {
+        return categoryDTO != null && categoryDTO.getName() != null && !categoryDTO.getName().isEmpty();
+    }
     @GetMapping
     public ResponseEntity<List<Category>> getAllCategories() {
         List<Category> categories = categoryService.getAllCategories();
