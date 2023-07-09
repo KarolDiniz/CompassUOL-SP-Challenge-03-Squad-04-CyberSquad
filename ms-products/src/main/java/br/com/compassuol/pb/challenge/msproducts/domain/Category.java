@@ -1,5 +1,6 @@
 package br.com.compassuol.pb.challenge.msproducts.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import jakarta.persistence.*;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 @Entity
+@AllArgsConstructor
 @Table(name = "tb_category")
 public class Category {
 
@@ -18,4 +20,5 @@ public class Category {
 
     @Column(name = "name")
     private String name;
+
 }
