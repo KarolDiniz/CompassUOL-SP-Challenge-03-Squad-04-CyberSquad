@@ -7,6 +7,7 @@ import br.com.compassuol.pb.challenge.msproducts.dto.ProductDTO;
 import br.com.compassuol.pb.challenge.msproducts.repository.CategoryRepository;
 import br.com.compassuol.pb.challenge.msproducts.repository.ProductRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +20,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 @AllArgsConstructor
 @Transactional
 public class ProductService {
@@ -26,24 +28,29 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
 
+
     public Product createProduct(ProductDTO productDTO) {
-        Product product = new Product();
+        log.info("Creating a new product: {}", productDTO);
+        var product = new Product();
         BeanUtils.copyProperties(productDTO, product);
         setCategories(productDTO, product);
         return productRepository.save(product);
     }
 
     public Product getProductById(Long id) {
+        log.info("Fetching product with id: {}", id);
         return productRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Product not found with id: " + id));
     }
 
 
     public List<Product> getAllProducts() {
+        log.info("Fetching all products");
         return productRepository.findAll();
     }
 
     public Product updateProduct(Long id, ProductDTO productDTO) {
+        log.info("Updating product with id: {}", id);
         Optional<Product> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isEmpty()) {
             throw new IllegalArgumentException("Product not found with id: " + id);
@@ -57,12 +64,16 @@ public class ProductService {
 
 
     public Page<Product> getAllProducts(Pageable pageable) {
+        log.info("Fetching all products with pagination");
         return productRepository.findAll(pageable);
     }
 
-    public void deleteAllProducts() { productRepository.deleteAll(); }
+    public void deleteAllProducts() {
+        log.info("Deleting all products");
+        productRepository.deleteAll(); }
 
     public void deleteProduct(Long id) {
+        log.info("Deleting product with id: {}", id);
         productRepository.deleteById(id);
     }
 

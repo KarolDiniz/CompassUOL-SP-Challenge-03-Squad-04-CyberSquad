@@ -61,16 +61,16 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
-        return ResponseEntity.noContent().build();
+        productService.deleteProduct(id);
+        String message = "Product with ID " + id + " has been deleted successfully";
+        return ResponseEntity.noContent().header("message", message).build();
+
     }
 
     @DeleteMapping
     public ResponseEntity<Void> deleteAllProducts() {
         productService.deleteAllProducts();
-        return ResponseEntity.noContent().build();
+        String message = "All products have been deleted successfully";
+        return ResponseEntity.noContent().header("message", message).build();
     }
-
-
 }
-
-

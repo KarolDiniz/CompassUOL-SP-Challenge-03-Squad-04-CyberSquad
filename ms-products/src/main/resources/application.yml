@@ -1,7 +1,6 @@
 spring:
   application:
     name: msproducts
-
   datasource:
     url: jdbc:postgresql://localhost:5432/msproducts
     username: postgres
