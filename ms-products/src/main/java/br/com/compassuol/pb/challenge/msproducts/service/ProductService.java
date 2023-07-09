@@ -13,7 +13,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,17 +38,23 @@ public class ProductService {
                 .orElseThrow(() -> new IllegalArgumentException("Product not found with id: " + id));
     }
 
+
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 
-
     public Product updateProduct(Long id, ProductDTO productDTO) {
-        Product product = getProductById(id);
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        if (optionalProduct.isEmpty()) {
+            throw new IllegalArgumentException("Product not found with id: " + id);
+        }
+        Product product = optionalProduct.get();
         BeanUtils.copyProperties(productDTO, product);
         setCategories(productDTO, product);
         return productRepository.save(product);
     }
+
+
 
     public Page<Product> getAllProducts(Pageable pageable) {
         return productRepository.findAll(pageable);
@@ -70,8 +78,9 @@ public class ProductService {
             }
             product.setCategories(categories);
         } else {
-            product.setCategories(null);
+            product.setCategories(new ArrayList<>()); // Define uma lista vazia
         }
     }
+
 
 }
