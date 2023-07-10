@@ -1,0 +1,204 @@
+DataSeeding
+
+
+==========  MS-PRODUCTS  ============
+
+
+POST: http://localhost:8081/categories
+
+ {
+  "name": "Category1"
+}
+
+-------------------------------
+
+{
+  "name": "Category2"
+}
+
+-------------------------------
+
+POST: http://localhost:8081/products
+
+{
+  "date": "2023-07-04",
+  "description": "Compass uol products",
+  "name": "compassUol",
+  "imgUrl": "https://example.com/image.jpg",
+  "price": 99.99,
+  "categories": [
+    {
+      "id": 1
+    },
+    {
+      "id": 2
+    }
+  ]
+}
+--------------------------------
+
+GET: http://localhost:8081/products
+
+GET: http://localhost:8081/products/1
+
+GET: http://localhost:8081/products/paged?page=1&size=5&direction=DESC&orderBy=name
+
+---------------------------------
+
+PUT: http://localhost:8081/products/1
+
+{
+    "id":1,
+  "date": "2023-07-04",
+  "description": "Descrição do produto",
+  "name": "Nome do produto",
+  "imgUrl": "https://exampljjjje.com/image.jpg",
+  "price": 99.99,
+  "categories": [
+    {
+      "id": 2
+    }
+  ]
+}
+
+-------------------------------
+
+DELETE: http://pc:8081/products/1
+
+-------------------------------
+
+
+
+
+
+========= MS-USERS ============
+
+POST: http://pc:8081/roles
+
+
+{
+    "name": "ROLE_OPERATOR"
+}
+
+---------------------------
+
+{
+    "name": "ROLE_ADMIN"
+}
+
+
+--------------------------------
+
+POST: http://pc:8081/users
+
+{
+  "firstName": "CompassUser",
+  "lastName": "UolUser",
+  "email": "CompassUser@gmail.com",
+  "password": "Compass123",
+  "roles": [
+    {
+      "id": 1
+    }
+  ]
+}
+
+-------------------------------
+
+PUT: http://pc:8081/users/1
+
+{
+    "id":1,
+  "firstName": "firstName",
+  "lastName": "lastName",
+  "email": "email@example.com",
+  "password": "secretpassword",
+  "roles": [
+    {
+      "id": 2
+    }
+  ]
+}
+
+-----------------------------
+
+GET: http://pc:8081/users/1
+
+----------------------------
+
+GET: http://pc:8081/users/search?email=CompassUser@gmail.com
+
+-----------------------------
+
+
+=============  MS-AUTH  ===========
+
+http://pc:8081/msauth/users/search?email=kkkgmail.com
+
+
+
+DATABASE SQL: 
+
+-- Database: msproducts
+
+-- DROP DATABASE IF EXISTS msproducts;
+
+CREATE DATABASE msproducts
+    WITH
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'Portuguese_Brazil.1252'
+    LC_CTYPE = 'Portuguese_Brazil.1252'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1
+    IS_TEMPLATE = False;
+
+
+-----------------------
+
+-- Database: msnotificationdatabase
+
+-- DROP DATABASE IF EXISTS msnotificationdatabase;
+
+CREATE DATABASE msnotificationdatabase
+    WITH
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'Portuguese_Brazil.1252'
+    LC_CTYPE = 'Portuguese_Brazil.1252'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1
+    IS_TEMPLATE = False;
+
+------------------------------
+
+-- Database: msusersdatabase
+
+-- DROP DATABASE IF EXISTS msusersdatabase;
+
+CREATE DATABASE msusersdatabase
+    WITH
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'Portuguese_Brazil.1252'
+    LC_CTYPE = 'Portuguese_Brazil.1252'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1
+    IS_TEMPLATE = False;
+
+-------------------------------------
+
+
+
+
+
+**************** OBSERVAÇÕES *****************
+
+1. Pode ser usado o 'localhost', como também o 'pc' para todos os links.
+
+2. ms-auth gera um basic password no console
+
+
+
+
+

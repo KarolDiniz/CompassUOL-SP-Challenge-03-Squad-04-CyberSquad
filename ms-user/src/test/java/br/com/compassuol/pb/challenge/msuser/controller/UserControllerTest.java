@@ -29,7 +29,6 @@ class UserControllerTest {
 
     @Test
     void createUser_ValidUserDTO_ReturnsCreatedUser() {
-        // Arrange
         UserDTO userDTO = new UserDTO();
         userDTO.setFirstName("compasstest");
         userDTO.setFirstName("compasstest");
@@ -43,17 +42,14 @@ class UserControllerTest {
 
         when(userService.createUser(any(UserDTO.class))).thenReturn(createdUser);
 
-        // Act
         ResponseEntity<User> response = userController.createUser(userDTO);
 
-        // Assert
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(createdUser, response.getBody());
     }
 
     @Test
     void getUserById_UserExists_ReturnsUser() {
-        // Arrange
         Long userId = 1L;
 
         User user = new User();
@@ -64,17 +60,14 @@ class UserControllerTest {
 
         when(userService.getUserById(userId)).thenReturn(user);
 
-        // Act
         ResponseEntity<User> response = userController.getUserById(userId);
 
-        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(user, response.getBody());
     }
 
     @Test
     void updateUser_ValidUserDTO_ReturnsUpdatedUser() {
-        // Arrange
         Long userId = 1L;
 
         UserDTO userDTO = new UserDTO();
@@ -89,48 +82,31 @@ class UserControllerTest {
         updatedUser.setEmail("updated.email@example.com");
 
         when(userService.updateUser(eq(userId), any(UserDTO.class))).thenReturn(updatedUser);
-
-        // Act
         ResponseEntity<User> response = userController.updateUser(userId, userDTO);
-
-        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(updatedUser, response.getBody());
     }
 
     @Test
     void getUserByEmail_UserExists_ReturnsUser() {
-        // Arrange
         String userEmail = "john.doe@example.com";
-
         User user = new User();
         user.setId(1L);
         user.setFirstName("compasstest");
         user.setLastName("compasstest");
         user.setEmail(userEmail);
-        ;
 
         when(userService.findByEmail(userEmail)).thenReturn(user);
-
-        // Act
         ResponseEntity<User> response = userController.getUserByEmail(userEmail);
-
-        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(user, response.getBody());
     }
 
     @Test
     void getUserByEmail_UserDoesNotExist_ReturnsNotFound() {
-        // Arrange
         String userEmail = "nonexistent@example.com";
-
         when(userService.findByEmail(userEmail)).thenReturn(null);
-
-        // Act
         ResponseEntity<User> response = userController.getUserByEmail(userEmail);
-
-        // Assert
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 }

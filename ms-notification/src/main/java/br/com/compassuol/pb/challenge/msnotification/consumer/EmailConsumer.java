@@ -24,19 +24,6 @@ public class EmailConsumer {
 
     @Autowired
     private final RabbitTemplate rabbitTemplate;
-//
-//    @RabbitListener(queues = "${spring.rabbitmq.queue}")
-//    public void listen(@Payload EmailDTO emailDto) {
-//        Email email = new Email();
-//        BeanUtils.copyProperties(emailDto, email);
-//        emailService.sendEmail(email);
-//        System.out.println("Email Status: " + email.getStatusEmail().toString());
-//    }
-//
-//    @RabbitListener(queues = "ms-notification")
-//    public void listenUserCreation(String message) {
-//        System.out.println("Novo usuário cadastrado: " + message);
-//    }
 
     @RabbitListener(queues = "ms-notification")
     public void listenUserCreation(String userEmail) {

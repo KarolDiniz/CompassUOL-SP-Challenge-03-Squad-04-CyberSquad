@@ -10,7 +10,6 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -26,20 +25,16 @@ public class CategoryServiceTest {
     private CategoryService categoryService;
     @Test
     void createCategory_ValidData_ReturnsCategory() {
-        // Criação de dados de teste
         CategoryDTO categoryDTO = new CategoryDTO();
         categoryDTO.setName("Test Category");
 
-        // Configuração do mock
         Category savedCategory = new Category();
         savedCategory.setId(1L);
         savedCategory.setName("Test Category");
         when(categoryRepository.save(any(Category.class))).thenReturn(savedCategory);
 
-        // Execução do método a ser testado
         Category createdCategory = categoryService.createCategory(categoryDTO);
 
-        // Verificação dos resultados
         assertNotNull(createdCategory);
         assertEquals(savedCategory.getId(), createdCategory.getId());
         assertEquals(savedCategory.getName(), createdCategory.getName());
@@ -48,16 +43,12 @@ public class CategoryServiceTest {
 
     @Test
     void createCategory_NullData_ThrowsException() {
-        // Execução do método a ser testado
         assertThrows(IllegalArgumentException.class, () -> categoryService.createCategory(null));
-
-        // Verificação do comportamento do mock
         verify(categoryRepository, never()).save(any(Category.class));
     }
 
     @Test
     void getAllCategories_ReturnsListOfCategories() {
-        // Criação de dados de teste
         Category category1 = new Category();
         category1.setId(1L);
         category1.setName("Category 1");
@@ -70,13 +61,9 @@ public class CategoryServiceTest {
         categories.add(category1);
         categories.add(category2);
 
-        // Configuração do mock
         when(categoryRepository.findAll()).thenReturn(categories);
-
-        // Execução do método a ser testado
         List<Category> retrievedCategories = categoryService.getAllCategories();
 
-        // Verificação dos resultados
         assertNotNull(retrievedCategories);
         assertEquals(2, retrievedCategories.size());
         assertEquals(category1.getId(), retrievedCategories.get(0).getId());

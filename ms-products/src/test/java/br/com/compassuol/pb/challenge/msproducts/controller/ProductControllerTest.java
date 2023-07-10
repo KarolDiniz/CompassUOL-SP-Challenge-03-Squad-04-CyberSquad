@@ -33,7 +33,6 @@ public class ProductControllerTest {
 
     @Test
     public void createProduct_ValidProductDTO_ShouldReturnCreatedStatusAndProduct() {
-        // Arrange
         ProductDTO productDTO = new ProductDTO();
         Product product = new Product();
         when(productService.createProduct(productDTO)).thenReturn(product);
@@ -91,7 +90,6 @@ public class ProductControllerTest {
 
     @Test
     public void updateProduct_ExistingProductIdAndValidProductDTO_ShouldReturnUpdatedProduct() {
-        // Arrange
         Long productId = 1L;
         ProductDTO productDTO = new ProductDTO();
         Product updatedProduct = new Product();
