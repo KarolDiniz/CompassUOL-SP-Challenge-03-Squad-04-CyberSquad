@@ -13,8 +13,8 @@ public class UserService {
 
     private static Logger logger = LoggerFactory.getLogger(UserService.class);
 
-    @Autowired
-    private UserFeignClient userFeignClient;
+    //Autowired
+    UserFeignClient userFeignClient;
 
     public User getUserByEmail(String email){
         User user = userFeignClient.getUserByEmail(email).getBody();
