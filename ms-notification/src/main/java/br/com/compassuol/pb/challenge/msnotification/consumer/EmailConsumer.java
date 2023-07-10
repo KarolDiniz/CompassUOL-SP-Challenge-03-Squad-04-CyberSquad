@@ -45,7 +45,7 @@ public class EmailConsumer {
         Email email = new Email();
         email.setEmailFrom("msnotification19@gmail.com");
         email.setEmailTo(userEmail);
-        email.setSubject("Bem-vindo ao nosso sistema");
+        email.setSubject("Bem-vindo ao nosso sistema ");
         email.setText("Olá! O seu cadastro foi realizado com sucesso.");
 
         StringBuilder emailRepresentation = new StringBuilder();
@@ -57,12 +57,10 @@ public class EmailConsumer {
         emailRepresentation.append(email.getText()).append("\n");
         emailRepresentation.append("-------------------------------------------------\n");
 
-        // Imprimir a representação em formato de texto do e-mail no console
         System.out.println(emailRepresentation.toString());
-        String formattedEmail = emailRepresentation.toString();
-        //JOptionPane.showMessageDialog(null, formattedEmail, "E-mail Enviado", JOptionPane.INFORMATION_MESSAGE);
 
-        rabbitTemplate.convertAndSend("ms-notification", emailRepresentation.toString());
+
+        rabbitTemplate.convertAndSend("ms-notification", email.getSubject() + email.getText());
 
         emailService.sendEmail(email);
     }

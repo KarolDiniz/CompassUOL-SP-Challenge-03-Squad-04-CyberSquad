@@ -7,14 +7,17 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
-          
+
+      #default-filters:
+        #- name: ModifyRequest
+          #args:
+            #removeRequestHeader: Cookie,Set-Cookie
+#Keycloak config
   #security:
     #oauth2:
      # resourceserver:
         #jwt:
           #issuer-uri: http://localhost:8080/realms/productmanagementrealm
-
-
 server:
   port: 8081
 
