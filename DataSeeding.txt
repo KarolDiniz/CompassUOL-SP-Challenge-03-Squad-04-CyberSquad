@@ -199,6 +199,25 @@ CREATE DATABASE msusersdatabase
 2. ms-auth gera um basic password no console
 
 
+**************** CONSIDERAÇÕES *****************
+
+Prezado Sr. Instrutor,
+
+Gostaria de apresentar a você o projeto ao qual me dediquei na última semana. Apesar de ter me empenhado ao máximo, reconheço que algumas lacunas ainda permanecem. No entanto, posso assegurar-lhe que fiz o meu melhor para executar as tarefas.
+
+Agradeço a oportunidade de realizar este projeto e aproveito para ressaltar meu comprometimento em continuar aprendendo e aprimorando minhas habilidades. 
+
+Agradeço sua atenção e aguardo suas considerações.
+
+Atenciosamente, Karoline.
+
+
+
+
+
+
+
+
 
 
 
