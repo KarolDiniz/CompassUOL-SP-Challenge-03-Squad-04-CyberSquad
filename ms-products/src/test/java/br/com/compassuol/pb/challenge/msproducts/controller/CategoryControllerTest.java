@@ -38,21 +38,16 @@ public class CategoryControllerTest {
 
     @Test
     void createCategoryTest() {
-        // Criação de dados de teste
         CategoryDTO categoryDTO = new CategoryDTO();
         categoryDTO.setName("Test Category");
-
         Category category = new Category();
         category.setId(1L);
         category.setName("Test Category");
 
-        // Configuração do comportamento do mock
         when(categoryService.createCategory(categoryDTO)).thenReturn(category);
 
-        // Execução do método a ser testado
         ResponseEntity<Category> response = categoryController.createCategory(categoryDTO);
 
-        // Verificação dos resultados
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(category, response.getBody());
         verify(categoryService, times(1)).createCategory(categoryDTO);
@@ -60,7 +55,6 @@ public class CategoryControllerTest {
 
     @Test
     void getAllCategoriesTest() {
-        // Criação de dados de teste
         Category category1 = new Category();
         category1.setId(1L);
         category1.setName("Category 1");
@@ -73,13 +67,9 @@ public class CategoryControllerTest {
         categories.add(category1);
         categories.add(category2);
 
-        // Configuração do comportamento do mock
         when(categoryService.getAllCategories()).thenReturn(categories);
 
-        // Execução do método a ser testado
         ResponseEntity<List<Category>> response = categoryController.getAllCategories();
-
-        // Verificação dos resultados
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(categories, response.getBody());
         verify(categoryService, times(1)).getAllCategories();
@@ -87,27 +77,16 @@ public class CategoryControllerTest {
 
     @Test
     void createCategory_InvalidData_ReturnsBadRequest() {
-        // Criação de dados de teste inválidos
         CategoryDTO categoryDTO = new CategoryDTO();
-        // Não definir o nome da categoria
-
-        // Execução do método a ser testado
         ResponseEntity<Category> response = categoryController.createCategory(categoryDTO);
-
-        // Verificação dos resultados
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         verify(categoryService, never()).createCategory(categoryDTO);
     }
 
     @Test
     void getAllCategories_NoCategories_ReturnsEmptyList() {
-        // Configuração do comportamento do mock
         when(categoryService.getAllCategories()).thenReturn(new ArrayList<>());
-
-        // Execução do método a ser testado
         ResponseEntity<List<Category>> response = categoryController.getAllCategories();
-
-        // Verificação dos resultados
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(0, response.getBody().size());
         verify(categoryService, times(1)).getAllCategories();

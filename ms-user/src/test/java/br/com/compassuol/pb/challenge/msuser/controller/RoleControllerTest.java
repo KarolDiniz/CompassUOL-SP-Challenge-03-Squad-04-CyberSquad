@@ -33,37 +33,27 @@ class RoleControllerTest {
 
     @Test
     void createRole_ValidRoleDTO_ReturnsCreatedRole() {
-        // Arrange
         RoleDTO roleDTO = new RoleDTO();
         roleDTO.setName(RoleName.ROLE_ADMIN);
 
         Role createdRole = new Role();
         createdRole.setId(1L);
         createdRole.setName(RoleName.ROLE_ADMIN);
-
         when(roleService.createRole(any(RoleDTO.class))).thenReturn(createdRole);
 
-        // Act
         ResponseEntity<Role> response = roleController.createRole(roleDTO);
-
-        // Assert
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(createdRole, response.getBody());
     }
 
     @Test
     void getAllRoles_RolesExist_ReturnsListOfRoles() {
-        // Arrange
         Role role1 = new Role(1L, RoleName.ROLE_ADMIN);
         Role role2 = new Role(2L, RoleName.ROLE_OPERATOR);
         List<Role> roles = Arrays.asList(role1, role2);
-
         when(roleService.getAllRoles()).thenReturn(roles);
 
-        // Act
         ResponseEntity<List<Role>> response = roleController.getAllRoles();
-
-        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(roles, response.getBody());
     }
