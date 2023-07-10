@@ -2,11 +2,14 @@ package br.com.compassuol.pb.challenge.msuser.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "tb_role")
 public class Role {
     @Id
@@ -16,4 +19,6 @@ public class Role {
     @NotNull
     @Enumerated(EnumType.STRING)
     private RoleName name;
+
+
 }
