@@ -40,7 +40,7 @@ public class UserService {
         return userRepository.save(existingUser);
     }
 
-    private void setRoles(UserDTO userDTO, User user) {
+    void setRoles(UserDTO userDTO, User user) {
         List<Role> roles = userDTO.getRoles();
         if (roles != null && !roles.isEmpty()) {
             List<Long> roleIds = roles.stream()
