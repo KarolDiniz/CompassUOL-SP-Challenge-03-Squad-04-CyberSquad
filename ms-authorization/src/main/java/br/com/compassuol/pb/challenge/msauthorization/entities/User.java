@@ -1,6 +1,10 @@
 package br.com.compassuol.pb.challenge.msauthorization.entities;
 
+import lombok.Getter;
+
 import java.util.List;
+
+@Getter
 public class User {
 
     private Long id;
