@@ -34,4 +34,16 @@ public class UserController {
         User updatedUser = userService.updateUser(id, userDTO);
         return ResponseEntity.ok(updatedUser);
     }
+
+    @GetMapping(value = "/search")
+    public ResponseEntity<User> getUserByEmail(@RequestParam String email) {
+        User user = userService.findByEmail(email);
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
+
+

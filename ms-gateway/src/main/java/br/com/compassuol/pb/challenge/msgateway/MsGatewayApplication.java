@@ -22,6 +22,7 @@ public class MsGatewayApplication {
 				.route(r -> r.path("/products/**").uri("lb://msproducts"))
 				.route(r -> r.path("/users/**").uri("lb://msusers"))
 				.route(r -> r.path("/roles/**").uri("lb://msusers"))
+				.route(r -> r.path("/oauth/**").uri("lb://msauth"))
 				.build();
 	}
 }
